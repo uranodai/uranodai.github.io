@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html> 
-<head> 
-	<title>Simple Example</title> 
+<html>
+<head>
+	<title>Simple Example</title>
 
-	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyC_sZNsnhQhJMPkxPIGin_7DUVPK83zsDk" type="text/javascript"></script> 
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false" type="text/javascript"></script>
 	<script src="js/three.min.js"></script>
 	<script src="js/GSVPano.js"></script>
 	<script src="../src/Hyperlapse.js"></script>
-	<script> 
+	<script>
 
 		function init() {
-
 			var hyperlapse = new Hyperlapse(document.getElementById('pano'), {
 				fov: 80,
 				millis: 30,
@@ -21,6 +20,7 @@
 				distance_between_points: 5,
 				max_points: 1000,
 			});
+
 			hyperlapse.onError = function(e) {
 				console.log(e);
 			};
@@ -30,6 +30,7 @@
 			};
 
 			hyperlapse.onLoadComplete = function(e) {
+				alert('go!');
 				hyperlapse.play();
 			};
 
@@ -37,10 +38,14 @@
 			var directions_service = new google.maps.DirectionsService();
 
 			var route = {
-				request:{
-					origin: new google.maps.LatLng(37.816480000000006,-122.47825,37),
-					destination: new google.maps.LatLng(37.81195,-122.47773000000001),
-					travelMode: google.maps.DirectionsTravelMode.DRIVING
+				request : {
+					origin      : new google.maps.LatLng(35.783763,139.72059),
+					destination : new google.maps.LatLng(35.542205,139.79226),
+					waypoints   : [
+						{ location : '35.733511,139.614653' },
+						{ location : '35.599529,139.669251' }
+					],
+					travelMode  : google.maps.DirectionsTravelMode.DRIVING
 				}
 			};
 
@@ -55,10 +60,10 @@
 		}
 
 		window.onload = init;
-		
-	</script> 
-</head> 
-<body> 
+
+	</script>
+</head>
+<body>
 	<div id="pano"></div>
-</body> 
+</body>
 </html>
